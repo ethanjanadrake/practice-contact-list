@@ -1,20 +1,22 @@
 import React from 'react';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import UserProvider from './providers/UserProvider';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Contacts from './containers/Contacts/Contacts';
+import Contacts from './containers/Contacts';
 
 function App() {
 	return (
-		<div className='App'>
-			<Router>
+		<Router>
+			<UserProvider>
 				<Navbar />
 				<Contacts />
 				<Switch>
-					<Route path='/' exact />
+					<Route path='/home' exact />
 				</Switch>
-			</Router>
-		</div>
+			</UserProvider>
+		</Router>
 	);
 }
 
