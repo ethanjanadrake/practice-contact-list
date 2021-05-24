@@ -10,7 +10,7 @@ import Container from 'react-bootstrap/Container';
 
 export default function Contact(props) {
 	const ref = firebase.firestore().collection('contacts');
-	const { currentUser } = useAuth();
+	const { currentUser, simulateLogin } = useAuth();
 
 	const [
 		edit,
@@ -64,7 +64,7 @@ export default function Contact(props) {
 							<div>{props.email}</div>
 						</div>
 						<div className='ml-3'>
-							{currentUser && (
+							{(currentUser || simulateLogin) && (
 								<ButtonGroup>
 									<Button onClick={startEdit}>
 										<i className='fas fa-user-edit' />
@@ -78,14 +78,17 @@ export default function Contact(props) {
 					</div>
 				)}
 				{edit && (
-					<ContactForm
-						formType='edit'
-						cancelEdit={cancelEdit}
-						defaultNameFirst={props.nameFirst}
-						defaultNameLast={props.nameLast}
-						defaultEmail={props.email}
-						id={props.id}
-					/>
+					<div>
+						<div className='text-center pt-5'>Editing Contact</div>
+						<ContactForm
+							formType='edit'
+							cancelEdit={cancelEdit}
+							defaultNameFirst={props.nameFirst}
+							defaultNameLast={props.nameLast}
+							defaultEmail={props.email}
+							id={props.id}
+						/>
+					</div>
 				)}
 			</Card>
 		</Container>

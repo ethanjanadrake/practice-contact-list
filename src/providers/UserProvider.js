@@ -12,9 +12,18 @@ const UserProvider = (props) => {
 		setCurrentUser
 	] = useState(null);
 
-	function logout() {
+	const [
+		simulateLogin,
+		setSimulateLogin
+	] = useState(false);
+
+	const logout = () => {
 		return auth.signOut();
-	}
+	};
+
+	const toggleSimLog = () => {
+		setSimulateLogin(!simulateLogin);
+	};
 
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -26,6 +35,8 @@ const UserProvider = (props) => {
 
 	const value = {
 		currentUser,
+		simulateLogin,
+		toggleSimLog,
 		logout
 	};
 

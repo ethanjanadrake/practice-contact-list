@@ -12,7 +12,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 export default function Contacts(props) {
 	const ref = firebase.firestore().collection('contacts');
-	const { currentUser } = useAuth();
+	const { currentUser, simulateLogin } = useAuth();
 
 	const [
 		contacts,
@@ -90,13 +90,16 @@ export default function Contacts(props) {
 
 	return (
 		<Container>
-			{currentUser && (
+			{(currentUser || simulateLogin) && (
 				<Card>
+					<div className='text-center pt-5'>Add Contact</div>
 					<ContactForm formType='add' />
 				</Card>
 			)}
 			<Card className='mt-5 pb-3'>
-				{!currentUser && <p className='m-4 mb-0 text-muted'>Log in with Google to edit Contact List</p>}
+				{!(currentUser || simulateLogin) && (
+					<p className='m-4 mb-0 text-muted'>Log in with Google or Simulate Login to edit Contact List</p>
+				)}
 				<div className='m-4 mb-0 d-flex justify-content-end'>
 					<Dropdown as={ButtonGroup}>
 						<Button
